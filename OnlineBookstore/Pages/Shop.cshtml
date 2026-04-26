@@ -5,4 +5,49 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="book-list">
+    <div class="book-box">
+
+        @foreach (Book b in ViewData["Books"] as List<Book>)
+        {
+            <div class="book-image">
+                @if (!string.IsNullOrEmpty(b.ImagePath))
+                {
+                    <img src="@b.ImagePath" alt="@b.Title" width="120" />
+                }
+            </div>
+            <div class="book-details"></div>
+            <div class="book-price"></div>
+            
+        }
+
+    </div>
+</div>
+<!--
+<table class="books">
+    <thead>
+        <tr>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>PublicationYear</th>
+            <th>Condition</th>
+            <th>CoverType</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (Book book in ViewData["Books"] as List<Book>)
+        {
+            <tr>
+                <td>@book.ISBN</td>
+                <td>@book.Title</td>
+                <td>@book.Price</td>
+                <td>@book.PublicationYear</td>
+                <td>@book.Condition</td>
+                <td>@book.CoverType</td>
+            </tr>
+            
+        }
+    </tbody>
+</table>==!>

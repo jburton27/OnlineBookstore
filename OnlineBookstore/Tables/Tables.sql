@@ -1,0 +1,127 @@
+IF DB_ID('OnlineBookstore') IS NULL
+BEGIN
+    CREATE DATABASE OnlineBookstore;
+END
+GO
+
+USE OnlineBookstore;
+GO
+
+CREATE TABLE [User]
+(
+    UserID INT IDENTITY(1,1) PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    PasswordHash VARCHAR(255) NOT NULL,
+    PhoneNumber VARCHAR(50) NULL,
+    [Address] VARCHAR(150) NULL,
+    DateJoined DATETIMEOFFSET NOT NULL DEFAULT(SYSDATETIMEOFFSET()),
+
+    UNIQUE(Email)
+);
+GO
+
+CREATE TABLE BookStore
+(
+    StoreID INT IDENTITY(1,1) PRIMARY KEY,
+    [Name] VARCHAR(100) NOT NULL,
+    [Address] VARCHAR(50) NULL,
+    City VARCHAR(50) NULL,
+    [State] VARCHAR(50) NULL
+);
+GO
+
+CREATE TABLE Genre
+(
+    GenreID INT IDENTITY(1,1) PRIMARY KEY,
+    GenreName VARCHAR(50) NOT NULL,
+
+    UNIQUE(GenreName)
+);
+GO
+
+CREATE TABLE Author
+(
+    AuthorID INT IDENTITY(1,1) PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL
+);
+GO
+
+CREATE TABLE Book
+(
+    BookID INT IDENTITY(1,1) PRIMARY KEY,
+    ISBN VARCHAR(20) NOT NULL,
+    AuthorID INT NOT NULL,
+    StoreID INT NOT NULL,
+    GenreID INT NOT NULL,
+    Title VARCHAR(150) NOT NULL,
+    Price DECIMAL(10,2) NOT NULL,
+    PublicationYear INT NULL,
+    [Condition] VARCHAR(30) NULL,
+    CoverType VARCHAR(30) NULL,
+
+    UNIQUE(ISBN),
+
+    FOREIGN KEY(AuthorID)
+        REFERENCES Author(AuthorID),
+
+    FOREIGN KEY(StoreID)
+        REFERENCES BookStore(StoreID),
+
+    FOREIGN KEY(GenreID)
+        REFERENCES Genre(GenreID),
+
+    CHECK(Price >= 0)
+);
+GO
+
+CREATE TABLE [Order]
+(
+    OrderID INT IDENTITY(1,1) PRIMARY KEY,
+    UserID INT NOT NULL,
+    OrderDate DATETIMEOFFSET NOT NULL DEFAULT(SYSDATETIMEOFFSET()),
+
+    FOREIGN KEY(UserID)
+        REFERENCES [User](UserID)
+);
+GO
+
+CREATE TABLE OrderLine
+(
+    OrderLineID INT IDENTITY(1,1) PRIMARY KEY,
+    OrderID INT NOT NULL,
+    BookID INT NOT NULL,
+    Quantity INT NOT NULL,
+    UnitPrice DECIMAL(10,2) NOT NULL,
+
+    FOREIGN KEY(OrderID)
+        REFERENCES [Order](OrderID),
+    FOREIGN KEY(BookID)
+        REFERENCES Book(BookID),
+
+    CHECK(Quantity > 0),
+    CHECK(UnitPrice >= 0)
+);
+GO
+
+CREATE TABLE Rating
+(
+    RatingID INT IDENTITY(1,1) PRIMARY KEY,
+    UserID INT NOT NULL,
+    BookID INT NOT NULL,
+    Score INT NOT NULL,
+    RatingDate DATETIMEOFFSET NOT NULL DEFAULT(SYSDATETIMEOFFSET()),
+
+    FOREIGN KEY(UserID)
+        REFERENCES [User](UserID),
+    
+    FOREIGN KEY(BookID)
+        REFERENCES Book(BookID),
+
+    UNIQUE(UserID, BookID),
+
+    CHECK(Score BETWEEN 1 AND 5)
+);
+GO

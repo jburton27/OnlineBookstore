@@ -4,7 +4,7 @@
     {
         public int ID { get; set; }
 
-        public int ISBN { get; set; }
+        public string ISBN { get; set; }
 
         public int AuthorID { get; set; }
 
@@ -21,5 +21,7 @@
         public string Condition { get; set; }
 
         public string CoverType { get; set; }
+
+        public string? ImagePath { get; set; }
     }
 }

@@ -20,3 +20,23 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.container {
+    display: flex;
+}
+/*
+.books {
+    width: 100%;
+}
+.books th,
+.books td {
+    padding: 10px;
+}
+
+.books tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.books tbody tr:hover {
+    background-color: #d6eaff;
+}*/

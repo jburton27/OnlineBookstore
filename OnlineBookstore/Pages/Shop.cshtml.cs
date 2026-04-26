@@ -9,7 +9,7 @@ namespace OnlineBookstore.Pages
     {
         private readonly ILogger<PrivacyModel> _logger;
 
-        public List<Book> Books = new List<Book>();
+        public List<Book> _books = new List<Book>();
 
         public PrivacyModel(ILogger<PrivacyModel> logger)
         {
@@ -31,7 +31,8 @@ namespace OnlineBookstore.Pages
                     {
                         Book b = new Book();
                         b.ID = reader.GetInt32("BookID");
-                        b.ISBN = reader.GetInt32("ISBN");
+                        Console.WriteLine(b.ID);
+                        b.ISBN = reader.GetString("ISBN");
                         b.AuthorID = reader.GetInt32("AuthorID");
                         b.StoreID = reader.GetInt32("StoreID");
                         b.GenreID = reader.GetInt32("GenreID");
@@ -40,11 +41,13 @@ namespace OnlineBookstore.Pages
                         b.PublicationYear = reader.GetInt32("PublicationYear");
                         b.Condition = reader.GetString("Condition");
                         b.CoverType = reader.GetString("CoverType");
+                        b.ImagePath = reader.IsDBNull(10) ? null : reader.GetString(10);
 
-                        Books.Add(b);
+                        _books.Add(b);
                     }
                 }
             }
+            ViewData["Books"] = _books;
         }
     }
 
