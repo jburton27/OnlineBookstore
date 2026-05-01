@@ -1,0 +1,48 @@
+﻿@page
+@model OnlineBookstore.Pages.CheckoutModel
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h1>Checkout</h1>
+
+@if (!Model.CartItems.Any())
+{
+    <p>Your cart is empty.</p>
+    <a asp-page="/Shop" class="btn btn-primary">Go Shopping</a>
+}
+else if (Model.OrderPlaced)
+{
+    <h3>Your order has been placed.</h3>
+    <a asp-page="/Shop" class="btn btn-primary">Back to Shop</a>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Book</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CartItems)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>$@item.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>$@(item.Price* item.Quantity)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h3>Grand Total: $@Model.GrandTotal</h3>
+
+    <form method="post">
+        <button type="submit" class="btn btn-success">Place Order</button>
+    </form>
+}

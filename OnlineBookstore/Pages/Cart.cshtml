@@ -1,0 +1,63 @@
+﻿@page
+@model OnlineBookstore.Pages.CartModel
+@{
+    ViewData["Title"] = "Your Cart";
+}
+
+<h1>Your Cart</h1>
+
+@if (!Model.CartItems.Any())
+{
+    <p>Your cart is empty.</p>
+    <a asp-page="/Shop" class="btn btn-primary">Continue Shopping</a>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Book</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CartItems)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ImagePath))
+                        {
+                            <img src="@item.ImagePath" alt="@item.Title" width="60" />
+                        }
+                        <div>@item.Title</div>
+                    </td>
+                    <td>$@item.Price</td>
+                    <td>
+                        <form method="post" asp-page-handler="UpdateQuantity">
+                            <input type="hidden" name="bookId" value="@item.BookID" />
+                            <input type="number" name="quantity" value="@item.Quantity" min="1" />
+                            <button type="submit" class="btn btn-sm btn-secondary">Update</button>
+                        </form>
+                    </td>
+                    <td>$@(item.Price* item.Quantity)</td>
+                    <td>
+                        <form method="post" asp-page-handler="RemoveItem">
+                            <input type="hidden" name="bookId" value="@item.BookID" />
+                            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h3>Grand Total: $@Model.GrandTotal</h3>
+
+    <div style="margin-top: 20px;">
+        <a asp-page="/Shop" class="btn btn-primary">Continue Shopping</a>
+        <a asp-page="/Checkout" class="btn btn-success">Proceed to Checkout</a>
+    </div>
+}

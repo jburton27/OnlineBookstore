@@ -1,0 +1,21 @@
+﻿@page
+@model OnlineBookstore.Pages.LoginModel
+
+<h1>Login</h1>
+
+<form method="post">
+    <div>
+        <label>Email</label>
+        <input asp-for="Email" />
+    </div>
+
+    <div>
+        <label>Password</label>
+        <input asp-for="Password" type="password" />
+    </div>
+
+    <button type="submit">Login</button>
+</form>
+
+<p>@Model.Message</p>
+<a asp-page="/SignUp">Need an account? Sign up</a>

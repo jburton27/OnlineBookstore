@@ -1,0 +1,30 @@
+﻿@page
+@model OnlineBookstore.Pages.SignUpModel
+
+<h1>Sign Up</h1>
+
+<form method="post">
+    <div>
+        <label>First Name</label>
+        <input asp-for="FirstName" />
+    </div>
+
+    <div>
+        <label>Last Name</label>
+        <input asp-for="LastName" />
+    </div>
+    <div>
+        <label>Email</label>
+        <input asp-for="Email" />
+    </div>
+
+    <div>
+        <label>Password</label>
+        <input asp-for="Password" type="password" />
+    </div>
+
+    <button type="submit">Create Account</button>
+</form>
+
+<p>@Model.Message</p>
+<a asp-page="/Login">Already have an account? Log in</a>

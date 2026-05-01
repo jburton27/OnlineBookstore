@@ -1,0 +1,49 @@
+﻿@page
+@model OnlineBookstore.Pages.OrdersModel
+@{
+    ViewData["Title"] = "Order History";
+}
+
+<h1>Order History</h1>
+
+@if (!Model.Orders.Any())
+{
+    <p>You have not placed any orders yet.</p>
+}
+else
+{
+    @foreach (var order in Model.Orders)
+    {
+        <div class="card mb-4">
+            <div class="card-header">
+                <strong>Order #@order.OrderID</strong> |
+                @order.OrderDate.ToString("M/d/yyyy h:mm tt")
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Book</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in order.Items)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>@item.Quantity</td>
+                                <td>$@item.UnitPrice</td>
+                                <td>$@(item.Quantity* item.UnitPrice)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <h5>Order Total: $@order.Total</h5>
+            </div>
+        </div>
+    }
+}

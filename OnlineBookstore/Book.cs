@@ -6,6 +6,8 @@
 
         public string ISBN { get; set; }
 
+        public string AuthorName { get; set; }
+
         public int AuthorID { get; set; }
 
         public int StoreID { get; set; }

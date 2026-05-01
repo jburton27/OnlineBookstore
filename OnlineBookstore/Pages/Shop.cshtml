@@ -6,48 +6,22 @@
 <h1>@ViewData["Title"]</h1>
 
 <div class="book-list">
-    <div class="book-box">
-
-        @foreach (Book b in ViewData["Books"] as List<Book>)
-        {
-            <div class="book-image">
-                @if (!string.IsNullOrEmpty(b.ImagePath))
-                {
-                    <img src="@b.ImagePath" alt="@b.Title" width="120" />
-                }
+    @foreach (Book b in ViewData["Books"] as List<Book>)
+    {
+        <div class="book-box">
+            @if (!string.IsNullOrEmpty(b.ImagePath))
+            {
+                <img class="book-image" src="@b.ImagePath" alt="@b.Title" width="120" />
+            }
+            <div class="book-details">
+                <h4>@b.Title</h4>
+                <h6>@b.AuthorName</h6>
+                <p class="book-price">$@b.Price</p>
+                <form method="post" asp-page-handler="AddToCart">
+                    <input type="hidden" name="bookId" value="@b.ID" />
+                    <button type="submit" class="add-btn">Add</button>
+                </form>
             </div>
-            <div class="book-details"></div>
-            <div class="book-price"></div>
-            
-        }
-
-    </div>
+        </div>
+    }
 </div>
-<!--
-<table class="books">
-    <thead>
-        <tr>
-            <th>ISBN</th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>PublicationYear</th>
-            <th>Condition</th>
-            <th>CoverType</th>
-        </tr>
-    </thead>
-    <tbody>
-
-        @foreach (Book book in ViewData["Books"] as List<Book>)
-        {
-            <tr>
-                <td>@book.ISBN</td>
-                <td>@book.Title</td>
-                <td>@book.Price</td>
-                <td>@book.PublicationYear</td>
-                <td>@book.Condition</td>
-                <td>@book.CoverType</td>
-            </tr>
-            
-        }
-    </tbody>
-</table>==!>
