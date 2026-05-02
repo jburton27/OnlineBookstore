@@ -25,5 +25,9 @@
         public string CoverType { get; set; }
 
         public string? ImagePath { get; set; }
+
+        public decimal AverageRating { get; set; }
+
+        public int RatingCount { get; set; }
     }
 }

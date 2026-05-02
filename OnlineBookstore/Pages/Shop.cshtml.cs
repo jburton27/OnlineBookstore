@@ -36,10 +36,28 @@ namespace OnlineBookstore.Pages
                         b.Condition,
                         b.CoverType,
                         b.ImagePath,
-                        a.FirstName + ' ' + a.LastName AS AuthorName
+                        a.FirstName + ' ' + a.LastName AS AuthorName,
+                        ISNULL(AVG(CAST(r.Score AS DECIMAL(3,2))), 0) AS AverageRating,
+                        COUNT(r.RatingID) AS RatingCount
                     FROM Book b
                     INNER JOIN Author a
-                        ON b.AuthorID = a.AuthorID";
+                        ON b.AuthorID = a.AuthorID
+                    LEFT JOIN Rating r
+                        ON b.BookID = r.BookID
+                    GROUP BY
+                        b.BookID,
+                        b.ISBN,
+                        b.AuthorID,
+                        b.StoreID,
+                        b.GenreID,
+                        b.Title,
+                        b.Price,
+                        b.PublicationYear,
+                        b.Condition,
+                        b.CoverType,
+                        b.ImagePath,
+                        a.FirstName,
+                        a.LastName";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -59,6 +77,8 @@ namespace OnlineBookstore.Pages
                         b.CoverType = reader.GetString(reader.GetOrdinal("CoverType"));
                         b.ImagePath = reader.IsDBNull(reader.GetOrdinal("ImagePath")) ? null : reader.GetString(reader.GetOrdinal("ImagePath"));
                         b.AuthorName = reader.GetString(reader.GetOrdinal("AuthorName"));
+                        b.AverageRating = reader.GetDecimal(reader.GetOrdinal("AverageRating"));
+                        b.RatingCount = reader.GetInt32(reader.GetOrdinal("RatingCount"));
 
                         _books.Add(b);
                     }
