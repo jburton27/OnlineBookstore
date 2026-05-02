@@ -5,21 +5,21 @@ using System.Text.Json;
 
 namespace OnlineBookstore.Pages
 {
-    public class PrivacyModel : PageModel
+    public class ShopModel : PageModel
     {
-        private readonly ILogger<PrivacyModel> _logger;
+        private readonly ILogger<ShopModel> _logger;
 
         private string _conString = "Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=OnlineBookstore;Integrated Security=True";
 
         public List<Book> _books = new List<Book>();
 
-        public PrivacyModel(ILogger<PrivacyModel> logger)
+        public ShopModel(ILogger<ShopModel> logger)
         {
             _logger = logger;
         }
 
         public void OnGet()
-        { 
+        {   
             using (SqlConnection con = new SqlConnection(_conString))
             {
                 con.Open();
@@ -184,15 +184,6 @@ namespace OnlineBookstore.Pages
                 AuthorName = reader.GetString(reader.GetOrdinal("AuthorName"))
             };
         }
-    }
-
-    public class CartItem
-    {
-        public int BookID { get; set; }
-        public string Title { get; set; }
-        public decimal Price { get; set; }
-        public string? ImagePath { get; set; }
-        public int Quantity { get; set; }
     }
 }
     

@@ -1,0 +1,104 @@
+﻿@page
+@model OnlineBookstore.Pages.ReportsModel
+@{
+}
+
+<h1>Reports</h1>
+
+<h2>Genre Sales Report</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Genre</th>
+            <th>Total Sales</th>
+            <th>Unique Customers</th>
+            <th>Average Order Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in Model.GenreSalesReports)
+        {
+            <tr>
+                <td>@row.GenreSalesRank</td>
+                <td>@row.GenreName</td>
+                <td>$@row.TotalSales.ToString("0.00")</td>
+                <td>@row.UniqueCustomers</td>
+                <td>$@row.AverageOrderValue.ToString("0.00")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Author Performance Report</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Author</th>
+            <th>Average Rating</th>
+            <th>Total Ratings</th>
+            <th>Total Books Sold</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in Model.AuthorReports)
+        {
+            <tr>
+                <td>@row.AuthorName</td>
+                <td>@row.AverageBookRating.ToString("0.0")</td>
+                <td>@row.TotalRatingsReceived</td>
+                <td>@row.TotalBooksSold</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Monthly Customer Behavior</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Month</th>
+            <th>New Customers</th>
+            <th>Repeat Customers</th>
+            <th>Total Active Customers</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in Model.MonthlyReports)
+        {
+            <tr>
+                <td>@row.OrderYear</td>
+                <td>@row.OrderMonth</td>
+                <td>@row.NewCustomers</td>
+                <td>@row.RepeatCustomers</td>
+                <td>@row.TotalActiveCustomers</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Top Customers</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Email</th>
+            <th>Lifetime Spend</th>
+            <th>Total Books Purchased</th>
+            <th>Favorite Genre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in Model.TopCustomerReports)
+        {
+            <tr>
+                <td>@row.CustomerFullName</td>
+                <td>@row.CustomerEmail</td>
+                <td>$@row.LifetimeSpend.ToString("0.00")</td>
+                <td>@row.TotalBooksPurchased</td>
+                <td>@row.FavoriteGenre</td>
+            </tr>
+        }
+    </tbody>
+</table>
