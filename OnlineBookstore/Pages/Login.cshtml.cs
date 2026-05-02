@@ -10,7 +10,7 @@ namespace OnlineBookstore.Pages
 {
     public class LoginModel : PageModel
     {
-        private readonly string conString =
+        private readonly string _conString =
             "Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=OnlineBookstore;Integrated Security=True";
 
         [BindProperty]
@@ -29,7 +29,7 @@ namespace OnlineBookstore.Pages
         {
             UserAccount? user = null;
 
-            using SqlConnection con = new SqlConnection(conString);
+            using SqlConnection con = new SqlConnection(_conString);
             con.Open();
 
             string query = "SELECT UserID, Email, PasswordHash FROM [User] WHERE Email = @Email";

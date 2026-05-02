@@ -6,7 +6,7 @@ namespace OnlineBookstore.Pages
 {
     public class OrdersModel : PageModel
     {
-        private readonly string conString =
+        private readonly string _conString =
             "Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=OnlineBookstore;Integrated Security=True";
 
         public List<OrderHistoryViewModel> Orders { get; set; } = new();
@@ -22,7 +22,7 @@ namespace OnlineBookstore.Pages
 
             int userId = int.Parse(userIdValue);
 
-            using SqlConnection con = new SqlConnection(conString);
+            using SqlConnection con = new SqlConnection(_conString);
             con.Open();
 
             string query = @"

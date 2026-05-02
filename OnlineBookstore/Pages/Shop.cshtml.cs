@@ -11,7 +11,7 @@ namespace OnlineBookstore.Pages
 
         private string _conString = "Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=OnlineBookstore;Integrated Security=True";
 
-        public List<Book> _books = new List<Book>();
+        public List<Book> books = new List<Book>();
 
         public ShopModel(ILogger<ShopModel> logger)
         {
@@ -80,11 +80,11 @@ namespace OnlineBookstore.Pages
                         b.AverageRating = reader.GetDecimal(reader.GetOrdinal("AverageRating"));
                         b.RatingCount = reader.GetInt32(reader.GetOrdinal("RatingCount"));
 
-                        _books.Add(b);
+                        books.Add(b);
                     }
                 }
             }
-            ViewData["Books"] = _books;
+            ViewData["Books"] = books;
         }
 
         public IActionResult OnPostAddToCart(int bookId)

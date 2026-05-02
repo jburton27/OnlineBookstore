@@ -8,7 +8,7 @@ namespace OnlineBookstore.Pages
 {
     public class CheckoutModel : PageModel
     {
-        private readonly string conString =
+        private readonly string _conString =
             "Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=OnlineBookstore;Integrated Security=True";
 
         public List<CartItem> CartItems { get; set; } = new();

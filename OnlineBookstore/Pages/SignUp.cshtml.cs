@@ -7,7 +7,7 @@ namespace OnlineBookstore.Pages
 {
     public class SignUpModel : PageModel
     {
-        private readonly string conString =
+        private readonly string _conString =
             "Data Source=(localdb)\\MSSQLLocalDb;Initial Catalog=OnlineBookstore;Integrated Security=True";
 
         [BindProperty]
@@ -30,7 +30,7 @@ namespace OnlineBookstore.Pages
 
         public IActionResult OnPost()
         {
-            using SqlConnection con = new SqlConnection(conString);
+            using SqlConnection con = new SqlConnection(_conString);
             con.Open();
 
             string checkQuery = "SELECT COUNT(*) FROM [User] WHERE Email = @Email";
