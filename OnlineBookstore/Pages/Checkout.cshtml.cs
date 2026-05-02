@@ -37,7 +37,7 @@ namespace OnlineBookstore.Pages
 
             int userId = int.Parse(userIdValue);
 
-            using SqlConnection con = new SqlConnection(conString);
+            using SqlConnection con = new SqlConnection(_conString);
             con.Open();
 
             using SqlTransaction transaction = con.BeginTransaction();
