@@ -73,20 +73,4 @@ namespace OnlineBookstore.Pages
             }
         }
     }
-
-    public class OrderHistoryViewModel
-    {
-        public int OrderID { get; set; }
-        public DateTimeOffset OrderDate { get; set; }
-        public List<OrderHistoryItem> Items { get; set; } = new();
-        public decimal Total => Items.Sum(i => i.Quantity * i.UnitPrice);
-    }
-
-    public class OrderHistoryItem
-    {
-        public int BookID { get; set; }
-        public string Title { get; set; } = "";
-        public int Quantity { get; set; }
-        public decimal UnitPrice { get; set; }
-    }
 }
