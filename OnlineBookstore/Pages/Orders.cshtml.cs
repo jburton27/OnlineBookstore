@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using System.Security.Claims;
@@ -71,6 +72,48 @@ namespace OnlineBookstore.Pages
                     UnitPrice = reader.GetDecimal(reader.GetOrdinal("UnitPrice"))
                 });
             }
+        }
+
+        public IActionResult OnPostRateBook(int bookId, int score)
+        {
+            string? userIdValue = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userIdValue))
+            {
+                return RedirectToPage("/Login");
+            }
+
+            int userId = int.Parse(userIdValue);
+
+            using SqlConnection con = new SqlConnection(_conString);
+            con.Open();
+
+            string query = @"
+                IF EXISTS (
+                    SELECT 1
+                    FROM Rating
+                    WHERE UserID = @UserID AND BookID = @BookID
+                )
+                BEGIN
+                    UPDATE Rating
+                    SET Score = @Score,
+                        RatingDate = SYSDATETIMEOFFSET()
+                    WHERE UserID = @UserID AND BookID = @BookID
+                END
+                ELSE
+                BEGIN
+                    INSERT INTO Rating (UserID, BookID, Score)
+                    VALUES (@UserID, @BookID, @Score)
+                END";
+
+            using SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@UserID", userId);
+            cmd.Parameters.AddWithValue("@BookID", bookId);
+            cmd.Parameters.AddWithValue("@Score", score);
+
+            cmd.ExecuteNonQuery();
+
+            return RedirectToPage();
         }
     }
 }

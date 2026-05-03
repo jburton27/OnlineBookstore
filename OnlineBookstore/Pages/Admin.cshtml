@@ -1,0 +1,62 @@
+﻿@page
+@model OnlineBookstore.Pages.AdminModel
+@{
+}
+
+<h1>Admin - Add Book</h1>
+
+<form method="post">
+    <div>
+        <label>ISBN</label>
+        <input asp-for="ISBN" class="form-control" />
+    </div>
+
+    <div>
+        <label>AuthorID</label>
+        <input asp-for="AuthorID" class="form-control" />
+    </div>
+
+    <div>
+        <label>StoreID</label>
+        <input asp-for="StoreID" class="form-control" />
+    </div>
+
+    <div>
+        <label>GenreID</label>
+        <input asp-for="GenreID" class="form-control" />
+    </div>
+
+    <div>
+        <label>Title</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+
+    <div>
+        <label>Price</label>
+        <input asp-for="Price" class="form-control" />
+    </div>
+
+    <div>
+        <label>Publication Year</label>
+        <input asp-for="PublicationYear" class="form-control" />
+    </div>
+
+    <div>
+        <label>Condition</label>
+        <input asp-for="Condition" class="form-control" />
+    </div>
+
+    <div>
+        <label>Cover Type</label>
+        <input asp-for="CoverType" class="form-control" />
+    </div>
+
+    <div>
+        <label>Image Path</label>
+        <input asp-for="ImagePath" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Add Book</button>
+</form>
+
+<p>@Model.Message</p>
