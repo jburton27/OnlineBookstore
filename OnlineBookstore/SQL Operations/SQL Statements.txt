@@ -1,7 +1,7 @@
 SQL Statements
 
 Pattern For Setup:
-For each SQL statement in the project, we first needed to create a connection to the database. We did this using a private field named "_conString" where we assigned it the connection string that is provided in the properties for the database. Once this field was initialized, we were able to use a method that establishes the database connection with the proper using statement. After the connection was setup, we wrote the queries needed to get the information from the database and saved them in a string variable. Once we had both the connection and the query, we were then able to establish the command variable. It is with this variable that we were actually able to use different functions to manipulate the database as needed.
+For each SQL statement in the project, we first needed to create a connection to the database. We did this using a private field named "_conString" where we assigned it the connection string that is provided in the properties for the database. Once this field was initialized, we were able to use a method that establishes the database connection with the SQLConnection class and the proper using statement. After the connection was setup, we wrote the queries needed to get the information from the database and saved them in a string variable. Once we had both the connection and the query, we were then able to establish the command variable from the SQLCommand class. It is with this variable that we were actually able to use different functions to manipulate the database as needed.
 
 List of Queries:
 Admin.cshtml.cs - Line 53
