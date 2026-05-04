@@ -1,6 +1,7 @@
 USE OnlineBookstore;
 GO
 
+--Shows the total sales, number of unique customers, and average order value for each genre, ranked by total sales within a specified date range. This helps administrators understand which genres are most profitable and engaging. 
 CREATE OR ALTER PROCEDURE GetGenreSalesReport
     @StartDate DATETIMEOFFSET,
     @EndDate DATETIMEOFFSET
@@ -23,6 +24,7 @@ BEGIN
 END;
 GO
 
+--For each author, calculate the average rating of their books, the total number of ratings received, and the total quantity sold.
 CREATE OR ALTER PROCEDURE GetAuthorPerformanceReport
     @MinimumRatings INT
 AS
@@ -42,6 +44,7 @@ BEGIN
 END;
 GO
 
+--Analyze customer purchasing behavior by showing, for each month, the number of new customers and the number of repeat customers who made a purchase.  
 CREATE OR ALTER PROCEDURE GetMonthlyCustomerBehavior
     @StartDate DATETIMEOFFSET,
     @EndDate DATETIMEOFFSET
@@ -76,6 +79,7 @@ BEGIN
 END;
 GO
 
+--Identify top users by showing the top 10 customers with the highest lifetime purchases. For each, show their total spent, total books purchased, and their most frequently purchased genre.  
 CREATE OR ALTER PROCEDURE GetTopCustomers
     @TopCount INT
 AS
