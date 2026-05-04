@@ -79,10 +79,8 @@ namespace OnlineBookstore.Pages
             }
 
             HttpContext.Session.Remove("Cart");
-            CartItems = new List<CartItem>();
-            OrderPlaced = true;
 
-            return Page();
+            return RedirectToPage("/Orders");
         }
 
         private List<CartItem> GetCart()
